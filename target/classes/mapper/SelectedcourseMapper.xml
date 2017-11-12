@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senoops.dao.SelectedcourseMapper" >
+  <resultMap id="BaseResultMap" type="com.senoops.model.Selectedcourse" >
+    <result column="courseID" property="courseid" jdbcType="INTEGER" />
+    <result column="userID" property="userid" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.senoops.model.Selectedcourse" >
+    insert into selectedcourse (courseID, userID)
+    values (#{courseid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.senoops.model.Selectedcourse" >
+    insert into selectedcourse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        courseID,
+      </if>
+      <if test="userid != null" >
+        userID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Base_Column_List">
+		courseID,userID
+	</sql>
+	<delete id="delete" parameterType="com.senoops.model.Selectedcourse">
+		<!-- DELETE user,user_role FROM user LEFT JOIN user_role ON user.id = user_role.user_id WHERE user.id= #{id,jdbcType = INTEGER} -->	
+		DELETE from selectedcourse where (courseID,userID )= 
+	<trim prefix=" (" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+    </trim>
+	</delete>
+	<select id="selectcourseById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from selectedcourse
+		where userID = #{userid,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectSelective" resultMap="BaseResultMap" parameterType="com.senoops.model.Selectedcourse">
+		select
+		<include refid="Base_Column_List" />
+		from selectedcourse
+		where (courseID,userID )=
+		 <trim prefix=" (" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+    </trim>
+	</select>
+</mapper>

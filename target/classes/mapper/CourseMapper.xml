@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.senoops.dao.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.senoops.model.Course" >
+    <id column="courseID" property="courseid" jdbcType="INTEGER" />
+    <result column="courseName" property="coursename" jdbcType="VARCHAR" />
+    <result column="courseDetail" property="coursedetail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    courseID, courseName, courseDetail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where courseID = #{courseid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course
+    where courseID = #{courseid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.senoops.model.Course" >
+    insert into course (courseID, courseName, courseDetail
+      )
+    values (#{courseid,jdbcType=INTEGER}, #{coursename,jdbcType=VARCHAR}, #{coursedetail,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.senoops.model.Course" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        courseID,
+      </if>
+      <if test="coursename != null" >
+        courseName,
+      </if>
+      <if test="coursedetail != null" >
+        courseDetail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseid != null" >
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="coursename != null" >
+        #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursedetail != null" >
+        #{coursedetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.senoops.model.Course" >
+    update course
+    <set >
+      <if test="coursename != null" >
+        courseName = #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursedetail != null" >
+        courseDetail = #{coursedetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where courseID = #{courseid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.senoops.model.Course" >
+    update course
+    set courseName = #{coursename,jdbcType=VARCHAR},
+      courseDetail = #{coursedetail,jdbcType=VARCHAR}
+    where courseID = #{courseid,jdbcType=INTEGER}
+  </update>
+  <select id = "selectAll" resultMap = "BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from course
+	</select>
+</mapper>
