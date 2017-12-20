@@ -10,6 +10,6 @@ a little project about online education platform（base in ssm）在线教育平
 #
 一些效果图：
 主页：
-
+![image](https://github.com/senoops/Online-education-platform-ssm-/blob/master/QQ%E6%88%AA%E5%9B%BE20171220160634.png)
 课程页面：
 ![image](https://github.com/senoops/Online-education-platform-ssm-/blob/master/BZB8B(UNKBGOP%2570PHNC)LI.png)
